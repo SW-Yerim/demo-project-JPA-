@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>양식 등록</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      th:href="@{/css/styles.css}"
+    />
+  </head>
+  <body>
+    <div class="list">
+      <h2>
+        <a
+          th:href="/api/template/list"
+          style="
+            font-size: 30px;
+            font-weight: bold;
+            text-decoration: none;
+            color: black;
+            margin-right: 20px;
+          "
+          >←</a
+        >
+        <span>양식 등록</span>
+      </h2>
+      <table>
+        <tbody>
+          <tr>
+            <th>회사</th>
+            <td th:text="${template.compNm}">
+              <input type="text" name="compId" />
+            </td>
+          </tr>
+          <tr>
+            <th>부서</th>
+            <td th:text="${template.deptNm}">
+              <input type="text" name="deptId" />
+            </td>
+          </tr>
+          <tr>
+            <th>양식 이름</th>
+            <td th:text="${template.temNm}">
+              <input type="text" name="temNm" />
+            </td>
+          </tr>
+          <tr>
+            <th>양식 설명</th>
+            <td th:text="${template.temDescription}">
+              <input type="text" name="temDescription" />
+            </td>
+          </tr>
+          <tr>
+            <th>양식 내용</th>
+            <td th:text="${template.temContents}">
+              <input type="text" name="temContents" />
+            </td>
+          </tr>
+          <tr>
+            <th>생성자</th>
+            <td th:text="${template.createNm}">
+              <input type="text" name="createId" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

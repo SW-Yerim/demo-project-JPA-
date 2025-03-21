@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>회사 상세 정보</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      th:href="@{/css/styles.css}"
+    />
+  </head>
+  <body>
+    <div class="list">
+      <h2>
+        <a
+          th:href="@{/api/company/list}"
+          style="
+            font-size: 30px;
+            font-weight: bold;
+            text-decoration: none;
+            color: black;
+            margin-right: 20px;
+          "
+          >←</a
+        >
+        <span>회사 상세 정보</span>
+      </h2>
+      <table>
+        <tbody>
+          <tr>
+            <th>회사</th>
+            <td th:text="${company.compId}"></td>
+          </tr>
+          <tr>
+            <th>회사 이름</th>
+            <td th:text="${company.compNm}"></td>
+          </tr>
+          <tr>
+            <th>사용여부</th>
+            <td th:text="${company.compStatus == 0 ? '사용' : '미사용'}"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

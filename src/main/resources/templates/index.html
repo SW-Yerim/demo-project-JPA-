@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" type='text/css' media='screen' th:href="@{/css/styles.css}">
+    <script src='main.js'></script>
+    <script>
+        
+        const listReq = () => {
+            location.href = "/board/";
+        }
+
+        const saveReq = () => {
+            location.href = "/board/save";
+        }
+
+        const pagingReq = () => {
+            location.href = "/board/paging";
+        }
+
+    </script>
+</head>
+<body>
+    
+    <button onclick="listReq()">글목록</button>
+    <button onclick="saveReq()">글작성</button>
+    <button onclick="pagingReq()">페이징목록</button>
+
+</body>
+</html>

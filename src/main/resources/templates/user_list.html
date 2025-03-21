@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>사용자 리스트</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      th:href="@{/css/styles.css}"
+    />
+  </head>
+  <body>
+    <div class="list">
+      <h2>
+        <span>사용자 전체 리스트</span>
+      </h2>
+      <table>
+        <thead>
+          <tr>
+            <th>회사</th>
+            <th>부서</th>
+            <th>이름</th>
+            <th>이메일</th>
+            <th>생성일</th>
+            <th>재직상태</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="user : ${userList}">
+            <td th:text="${user.compNm}"></td>
+            <td th:text="${user.deptNm}"></td>
+            <td>
+              <a
+                th:href="@{|/api/user/${user.userId}|}"
+                th:text="${user.userNm}"
+              ></a>
+            </td>
+            <td th:text="${user.userEmail}"></td>
+            <td th:text="${user.userDt}"></td>
+            <td>
+              <!-- 0:재직 / 1:휴직 / 2:퇴직 -->
+              <span th:if="${user.userStatus == 0}">재직</span>
+              <span th:if="${user.userStatus == 1}">휴직</span>
+              <span th:if="${user.userStatus == 2}">퇴직</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

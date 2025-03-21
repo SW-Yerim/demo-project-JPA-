@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>양식 상세 정보</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      th:href="@{/css/styles.css}"
+    />
+  </head>
+  <body>
+    <div class="list">
+      <h2></h2>
+        <a
+          th:href="@{/api/template/list}"
+          style="
+            font-size: 30px;
+            font-weight: bold;
+            text-decoration: none;
+            color: black;
+            margin-right: 20px;
+          "
+          >←</a
+        >
+        <span>양식 상세 정보</span>
+        <button class="btn" onclick="">양식생성</button>
+      </h2>
+      <table>
+        <tbody>
+          <tr>
+            <th>회사</th>
+            <td th:text="${template.compNm}" colspan="5"></td>
+          </tr>
+          <tr>
+            <th>부서</th>
+            <td th:text="${template.deptNm}" colspan="5"></td>
+          </tr>
+          <tr>
+            <th>양식 이름</th>
+            <td th:text="${template.temNm}" colspan="5"></td>
+          </tr>
+          <tr>
+            <th>양식 설명</th>
+            <td th:text="${template.temDescription}" colspan="5"></td>
+          </tr>
+          <tr>
+            <th>양식 내용</th>
+            <td th:text="${template.temContents}" colspan="5"></td>
+          </tr>
+          <tr>
+            <th>생성일</th>
+            <td
+              th:text="${#temporals.format(template.createDt, 'yyyy-MM-dd HH:mm:ss')}" colspan="5"
+            ></td>
+          </tr>
+          <tr>
+            <th>생성자</th>
+            <td th:text="${template.createNm}"></td>
+            <th>생성자 회사</th>
+            <td th:text="${template.createCompNm}"></td>
+            <th>생성자 부서</th>
+            <td th:text="${template.createDeptNm}"></td>
+          </tr>
+          <tr>
+            <th>수정자</th>
+            <td th:text="${template.updateNm}"></td>
+            <th>수정자 회사</th>
+            <td th:text="${template.updateCompNm}"></td>
+            <th>수정자 부서</th>
+            <td th:text="${template.updateDeptNm}"></td>
+          </tr>
+          <tr>
+            <th>사용여부</th>
+            <td>
+              <button
+                th:text="${template.temStatus == 0 ? '사용' : '미사용'}"
+                th:style="'color: ' + (${template.temStatus == 0} ? 'black' : 'red')"
+              ></button>
+            </td>
+            <th>완전삭제</th>
+            <td>
+              <button th:text="삭제"></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,39 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: approval
+
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
+      additional-paths: src/main/java # Java 코드 변경 감지
+      exclude: "static/**,public/**,templates/**" # 정적 리소스 제외
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/demo?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: root
+    password: 111111
+
+  thymeleaf:
+    cache: false
+    check-template-location: true
+    prefix: classpath:/templates/
+    suffix: .html
+    enabled: true
+
+  web:
+    resources:
+      static-locations: classpath:/static/
+      cache:
+        period: 0
+
+  jpa:
+    open-in-view: false # 엔티티 값을 화면에서 쓸것인지
+    show-sql: true # JPA 쿼리문 콘솔에 출력
+    hibernate: # 엔티티 클래스에 관련된 내용을 실행 할 때 마다 새로 만들것인지 변경할것인지
+      ddl-auto: update

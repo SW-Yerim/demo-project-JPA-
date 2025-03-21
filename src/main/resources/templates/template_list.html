@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>양식 리스트</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      th:href="@{/css/styles.css}"
+    />
+  </head>
+  <body>
+    <div class="list">
+      <h2>전자결재 양식 리스트</h2>
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>회사</th>
+            <th>부서</th>
+            <th>양식 이름</th>
+            <th>양식 설명</th>
+            <th>생성일</th>
+            <th>생성자</th>
+            <th>생성자 회사</th>
+            <th>생성자 부서</th>
+            <th>수정자</th>
+            <th>수정자 회사</th>
+            <th>수정자 부서</th>
+            <th>사용여부</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="template : ${temList}">
+            <td th:attr="tem-id=${template.temId}">
+              <input type="checkbox" />
+            </td>
+            <td th:text="${template.compNm}"></td>
+            <td th:text="${template.deptNm}"></td>
+            <td>
+              <a
+                th:href="@{|/api/template/${template.temId}|}"
+                th:text="${template.temNm}"
+              ></a>
+            </td>
+            <td th:text="${template.temDescription}"></td>
+            <td
+              th:text="${#temporals.format(template.createDt, 'yyyy-MM-dd HH:mm:ss')}"
+            ></td>
+            <td th:text="${template.createNm}"></td>
+            <td th:text="${template.createCompNm}"></td>
+            <td th:text="${template.createDeptNm}"></td>
+            <td th:text="${template.updateNm}"></td>
+            <td th:text="${template.updateCompNm}"></td>
+            <td th:text="${template.updateDeptNm}"></td>
+            <td>
+              <button
+                th:text="${template.temStatus == 0 ? '사용' : '미사용'}"
+                th:style="'color: ' + (${template.temStatus == 0} ? 'black' : 'red')"
+              ></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
