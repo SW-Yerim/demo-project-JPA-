@@ -3,6 +3,7 @@ package com.example.jpa.api.approval.entity;
 import java.time.LocalDateTime;
 
 import com.example.jpa.api.approval.dto.TemplateInsertRequestDTO;
+import com.example.jpa.api.approval.dto.TemplateUpdateRequestDTO;
 import com.example.jpa.api.common.entity.CompanyEntity;
 import com.example.jpa.api.common.entity.DepartmentEntity;
 import com.example.jpa.api.common.entity.UsersEntity;
@@ -129,7 +130,7 @@ public class TemplateEntity {
     }
 
     // DTO -> Entity 변환 생성자 추가
-    public static TemplateEntity toEntity(TemplateInsertRequestDTO dto) {
+    public static TemplateEntity toEntityInsert(TemplateInsertRequestDTO dto) {
         TemplateEntity templateEntity = new TemplateEntity();
 
         templateEntity.setCompId(dto.getCompId());
@@ -141,6 +142,23 @@ public class TemplateEntity {
         templateEntity.setCreateId(dto.getCreateId());
         templateEntity.setCreateCompId(dto.getCreateCompId());
         templateEntity.setCreateDeptId(dto.getCreateDeptId());
+
+        return templateEntity;
+    }
+
+    // DTO -> Entity 변환 생성자 추가
+    public static TemplateEntity toEntityUpdate(TemplateUpdateRequestDTO dto) {
+        TemplateEntity templateEntity = new TemplateEntity();
+
+        templateEntity.setCompId(dto.getCompId());
+        templateEntity.setDeptId(dto.getDeptId());
+        templateEntity.setTemNm(dto.getTemNm());
+        templateEntity.setTemDescription(dto.getTemDescription());
+        templateEntity.setTemContents(dto.getTemContents());
+        templateEntity.setTemStatus(dto.getTemStatus());
+        templateEntity.setUpdateId(dto.getUpdateId());
+        templateEntity.setUpdateCompId(dto.getUpdateCompId());
+        templateEntity.setUpdateDeptId(dto.getUpdateDeptId());
 
         return templateEntity;
     }

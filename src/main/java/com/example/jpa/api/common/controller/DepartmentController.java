@@ -33,7 +33,7 @@ public class DepartmentController {
         DepartmentResponseDTO department = departmentService.getDepartment(compId, deptId);
         model.addAttribute("department", department);
 
-        return "department_detail";
+        return "department-detail";
     }
 
     // q부서 리스트 가져오기
@@ -45,7 +45,7 @@ public class DepartmentController {
         List<DepartmentResponseDTO> department = departmentService.getDeptList();
         model.addAttribute("departmentList", department);
 
-        return "department_list";
+        return "department-list";
     }
 
 }

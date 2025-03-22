@@ -32,7 +32,7 @@ public class CompanyController {
         CompanyResponseDTO company = companyService.getCompany(compId);
         model.addAttribute("company", company);
 
-        return "company_detail";
+        return "company-detail";
     }
 
     // 회사 리스트 가져오기
@@ -44,7 +44,7 @@ public class CompanyController {
         List<CompanyResponseDTO> company = companyService.getCompList();
         model.addAttribute("companyList", company);
 
-        return "company_list";
+        return "company-list";
     }
 
 }

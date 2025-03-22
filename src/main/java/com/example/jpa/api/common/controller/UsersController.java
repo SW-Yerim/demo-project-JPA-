@@ -32,10 +32,10 @@ public class UsersController {
         UsersResponseDTO user = usersService.getUser(userId);
         model.addAttribute("user", user);
 
-        return "user_detail";
+        return "user-detail";
     }
 
-    // 사용자자 리스트 가져오기
+    // 사용자 리스트 가져오기
     @GetMapping("/list")
     public String getUserList(Model model) {
 
@@ -44,7 +44,7 @@ public class UsersController {
         List<UsersResponseDTO> userList = usersService.getUserList();
         model.addAttribute("userList", userList);
 
-        return "user_list";
+        return "user-list";
     }
 
 }

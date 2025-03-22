@@ -11,10 +11,26 @@
       media="screen"
       th:href="@{/css/styles.css}"
     />
+    <script th:inline="javascript">
+      const templateUpdateReq = (temId) => {
+        location.href = "/api/template/update?temId=" + temId;
+      };
+
+      function confirmDelete(temId) {
+        const message = "양식을 삭제하시겠습니까?";
+        console.log("temId : ", temId);
+
+        if (confirm(message)) {
+          const form = document.getElementById("templateFormDelete");
+          form.action = "/api/template/delete?temId=" + temId;
+          form.submit();
+        }
+      }
+    </script>
   </head>
   <body>
     <div class="list">
-      <h2></h2>
+      <h2>
         <a
           th:href="@{/api/template/list}"
           style="
@@ -27,7 +43,25 @@
           >←</a
         >
         <span>양식 상세 정보</span>
-        <button class="btn" onclick="">양식생성</button>
+        <button class="btn" th:onclick="|templateUpdateReq(${template.temId})|">
+          양식수정
+        </button>
+
+        <form
+          id="templateFormDelete"
+          class="form"
+          action="/api/template/delete"
+          method="post"
+        >
+          <input type="hidden" name="_method" value="delete" />
+          <button
+            class="btn"
+            type="button"
+            th:onclick="'confirmDelete(' + ${template.temId} + ')'"
+          >
+            양식삭제
+          </button>
+        </form>
       </h2>
       <table>
         <tbody>
@@ -54,7 +88,8 @@
           <tr>
             <th>생성일</th>
             <td
-              th:text="${#temporals.format(template.createDt, 'yyyy-MM-dd HH:mm:ss')}" colspan="5"
+              th:text="${#temporals.format(template.createDt, 'yyyy-MM-dd HH:mm:ss')}"
+              colspan="5"
             ></td>
           </tr>
           <tr>
@@ -75,16 +110,10 @@
           </tr>
           <tr>
             <th>사용여부</th>
-            <td>
-              <button
-                th:text="${template.temStatus == 0 ? '사용' : '미사용'}"
-                th:style="'color: ' + (${template.temStatus == 0} ? 'black' : 'red')"
-              ></button>
-            </td>
-            <th>완전삭제</th>
-            <td>
-              <button th:text="삭제"></button>
-            </td>
+            <td
+              th:text="${template.temStatus == 0 ? '사용' : '미사용'}"
+              th:style="'color: ' + (${template.temStatus == 0} ? 'black' : 'red')"
+            ></td>
           </tr>
         </tbody>
       </table>

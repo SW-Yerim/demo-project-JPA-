@@ -11,10 +11,29 @@
       media="screen"
       th:href="@{/css/styles.css}"
     />
+    <script>
+      const templateSaveReq = () => {
+        location.href = "/api/template/insert";
+      };
+
+      function confirmStatusChange(temId) {
+        const message = "양식 사용여부를 변경하시겠습니까?";
+        console.log("temId : ", temId);
+
+        if (confirm(message)) {
+          const form = document.getElementById("templateFormUpdate");
+          form.action = "/api/template/update?temId=" + temId;
+          form.submit();
+        }
+      }
+    </script>
   </head>
   <body>
     <div class="list">
-      <h2>전자결재 양식 리스트</h2>
+      <h2>
+        <span>전자결재 양식 리스트</span>
+        <button class="btn" onclick="templateSaveReq()">양식생성</button>
+      </h2>
       <table>
         <thead>
           <tr>
@@ -57,10 +76,21 @@
             <td th:text="${template.updateCompNm}"></td>
             <td th:text="${template.updateDeptNm}"></td>
             <td>
-              <button
-                th:text="${template.temStatus == 0 ? '사용' : '미사용'}"
-                th:style="'color: ' + (${template.temStatus == 0} ? 'black' : 'red')"
-              ></button>
+              <form
+                id="templateFormUpdate"
+                class="form"
+                action="/api/template/update"
+                method="post"
+              >
+                <input type="hidden" name="_method" value="patch" />
+                <button
+                  class="btn"
+                  type="button"
+                  th:text="${template.temStatus == 0 ? '사용' : '미사용'}"
+                  th:style="'color: ' + (${template.temStatus == 0} ? 'black' : 'red')"
+                  th:onclick="'confirmStatusChange(' + ${template.temId} + ')'"
+                ></button>
+              </form>
             </td>
           </tr>
         </tbody>

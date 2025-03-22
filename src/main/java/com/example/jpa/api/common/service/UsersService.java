@@ -35,7 +35,7 @@ public class UsersService {
         // UsersEntity userEntity = usersRepository.findUser(userId);
         UsersEntity userEntity = usersRepository.findUser(userId);
         if (userEntity == null) {
-            throw new RuntimeException("User not found");
+            throw new RuntimeException("사용자를 찾을 수 없습니다.");
         }
 
         // Entity -> DTO 변환 과정

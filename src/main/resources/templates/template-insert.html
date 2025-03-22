@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>양식 등록</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      th:href="@{/css/styles.css}"
+    />
+  </head>
+  <body>
+    <div class="list">
+      <form id="templateForm" th:action="@{/api/template/insert}" method="post" onsubmit="return validateForm()">
+        <h2>
+          <a
+            th:href="@{/api/template/list}"
+            style="
+              font-size: 30px;
+              font-weight: bold;
+              text-decoration: none;
+              color: black;
+              margin-right: 20px;
+            "
+            >←</a
+          >
+          <span>양식 등록</span>
+          <button type="submit" class="btn">저장</button>
+        </h2>
+        <table>
+          <tbody>
+            <tr>
+              <th>회사</th>
+              <td>
+                <select
+                  name="compId"
+                  class="select-box"
+                  id="compSelect"
+                  onchange="filterDepartments()"
+                >
+                  <option value="">회사 선택</option>
+                  <option
+                    th:each="company : ${compList}"
+                    th:value="${company.compId}"
+                    th:text="${company.compNm}"
+                  ></option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <th>부서</th>
+              <td>
+                <select name="deptId" class="select-box" id="deptSelect">
+                  <option value="">부서 선택</option>
+                  <!-- 부서는 선택된 회사에 맞게 가져오므로 JavaScript에서 동적으로 추가 -->
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <th>양식 이름</th>
+              <td>
+                <input type="text" name="temNm" />
+              </td>
+            </tr>
+            <tr>
+              <th>양식 설명</th>
+              <td>
+                <input type="text" name="temDescription" />
+              </td>
+            </tr>
+            <tr>
+              <th>양식 내용</th>
+              <td>
+                <input type="text" name="temContents" />
+              </td>
+            </tr>
+            <tr>
+              <th>양식 사용여부</th>
+              <td>
+                <label>
+                  <input type="radio" name="temStatus" value="0" />
+                  사용
+                </label>
+                <label>
+                  <input type="radio" name="temStatus" value="1" />
+                  미사용
+                </label>
+              </td>
+            </tr>
+            <tr>
+              <th>생성자</th>
+              <td>
+                <input type="text" th:name="createId" />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+    </div>
+  </body>
+  <script th:inline="javascript">
+    // 전체 부서 목록 (템플릿을 통해 서버에서 전달받은 데이터)
+    const deptList = /*[[${deptList}]]*/ [];
+
+    // 선택된 부서 ID (템플릿에서 넘어온 값)
+    const selectedDeptId = null;
+
+    // 부서 필터링 함수
+    function filterDepartments() {
+      const compId = document.getElementById("compSelect").value; // 선택된 회사 ID
+      const deptSelect = document.getElementById("deptSelect");
+
+      // 부서 목록 초기화
+      deptSelect.innerHTML = '<option value="">부서 선택</option>';
+
+      // 선택된 회사에 맞는 부서만 필터링해서 추가
+      const filteredDepts = deptList.filter(
+        (department) => department.compId == compId
+      );
+
+      // 필터링된 부서 목록을 select 옵션에 추가
+      filteredDepts.forEach((department) => {
+        const option = document.createElement("option");
+        option.value = department.deptId;
+        option.textContent = department.deptNm;
+
+        deptSelect.appendChild(option);
+      });
+    }
+
+    // 페이지 로딩 시 처음 부서 목록 필터링
+    window.onload = filterDepartments;
+
+    // 유효성 검사
+    function validateForm() {
+      const compId = document.getElementById("compSelect").value;
+      const deptId = document.getElementById("deptSelect").value;
+      const temNm = document.querySelector('input[name="temNm"]').value;
+      const temDescription = document.querySelector(
+        'input[name="temDescription"]'
+      ).value;
+      const temContents = document.querySelector(
+        'input[name="temContents"]'
+      ).value;
+      const temStatus = document.querySelector(
+        'input[name="temStatus"]:checked'
+      );
+      const createId = document.querySelector('input[name="createId"]').value;
+
+      if (!compId) {
+        alert("회사를 선택해주세요.");
+        return false;
+      }
+
+      if (!deptId) {
+        alert("부서를 선택해주세요.");
+        return false;
+      }
+
+      if (!temNm) {
+        alert("양식 이름을 입력해주세요.");
+        return false;
+      }
+
+      if (!temDescription) {
+        alert("양식 설명을 입력해주세요.");
+        return false;
+      }
+
+      if (!temContents) {
+        alert("양식 내용을 입력해주세요.");
+        return false;
+      }
+
+      if (!temStatus) {
+        alert("양식 사용여부를 선택해주세요.");
+        return false;
+      }
+
+      if (!createId) {
+        alert("생성자를 입력해주세요.");
+        return false;
+      }
+
+      return true;
+    }
+  </script>
+</html>

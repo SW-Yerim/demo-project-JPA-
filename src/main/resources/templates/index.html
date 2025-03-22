@@ -1,33 +1,39 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Title</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel="stylesheet" type='text/css' media='screen' th:href="@{/css/styles.css}">
-    <script src='main.js'></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      th:href="@{/css/styles.css}"
+    />
+    <script src="main.js"></script>
     <script>
-        
-        const listReq = () => {
-            location.href = "/board/";
-        }
+      const compListReq = () => {
+        location.href = "/api/company/list";
+      };
 
-        const saveReq = () => {
-            location.href = "/board/save";
-        }
+      const deptListReq = () => {
+        location.href = "/api/department/list";
+      };
 
-        const pagingReq = () => {
-            location.href = "/board/paging";
-        }
+      const userListReq = () => {
+        location.href = "/api/user/list";
+      };
 
+      const tempListReq = () => {
+        location.href = "/api/template/list";
+      };
     </script>
-</head>
-<body>
-    
-    <button onclick="listReq()">글목록</button>
-    <button onclick="saveReq()">글작성</button>
-    <button onclick="pagingReq()">페이징목록</button>
-
-</body>
+  </head>
+  <body>
+    <button class="btn" onclick="compListReq()">회사 목록</button>
+    <button class="btn" onclick="deptListReq()">부서 목록</button>
+    <button class="btn" onclick="userListReq()">사용자 목록</button>
+    <button class="btn" onclick="tempListReq()">양식 목록</button>
+  </body>
 </html>
