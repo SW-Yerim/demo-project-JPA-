@@ -42,7 +42,7 @@ public class TemplateController {
 
     // 단일 양식 가져오기
     @GetMapping("/{temId}")
-    public String getTemplate(@PathVariable Integer temId, Model model) {
+    public String getTemplate(@PathVariable("temId") Integer temId, Model model) {
 
         logger.info("[GET] getTemplate >>>>>>>>>");
 
@@ -54,19 +54,20 @@ public class TemplateController {
 
     // 양식 리스트 가져오기
     @GetMapping("/list")
-    public String getTemList(Model model) {
+    public String getTemList(@RequestParam(value = "keyword", required = false) String keyword, Model model) {
 
         logger.info("[GET] getTemList >>>>>>>>>");
 
-        List<TemplateResponseDTO> temList = templateService.getTemList();
+        List<TemplateResponseDTO> temList = templateService.getTemList(keyword);
         model.addAttribute("temList", temList);
+        model.addAttribute("keyword", keyword);
 
         return "template-list";
     }
 
     // 양식 등록 페이지 이동
     @GetMapping("/insert")
-    public String insertForm(@RequestParam(required = false) Integer temId, Model model) {
+    public String insertForm(@RequestParam(value = "temId", required = false) Integer temId, Model model) {
 
         logger.info("[GET] insertForm >>>>>>>>>");
 
@@ -95,7 +96,7 @@ public class TemplateController {
 
     // 양식 수정 페이지 이동
     @GetMapping("/update")
-    public String updateForm(@RequestParam(required = false) Integer temId, Model model) {
+    public String updateForm(@RequestParam(value = "temId", required = false) Integer temId, Model model) {
 
         logger.info("[GET] updateForm >>>>>>>>>");
 
@@ -136,7 +137,7 @@ public class TemplateController {
 
     // 양식 미사용 처리
     @PatchMapping("/update")
-    public String patchTemplate(@RequestParam Integer temId) {
+    public String patchTemplate(@RequestParam("temId") Integer temId) {
 
         logger.info("[PATCH] putTemplate >>>>>>>>>");
 
@@ -147,7 +148,7 @@ public class TemplateController {
 
     // 양식 삭제
     @DeleteMapping("/delete")
-    public String deleteTem(@RequestParam Integer temId) {
+    public String deleteTem(@RequestParam("temId") Integer temId) {
 
         logger.info("[PATCH] putTemplate >>>>>>>>>");
 

@@ -28,14 +28,14 @@ public class UsersEntity {
     @Column(name = "comp_id", nullable = false)
     private Integer compId; // 소속 회사
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "comp_id", referencedColumnName = "comp_id", insertable = false, updatable = false)
     private CompanyEntity company;
 
     @Column(name = "dept_id", nullable = false)
     private Integer deptId; // 소속 부서
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "comp_id", referencedColumnName = "comp_id", insertable = false, updatable = false),
             @JoinColumn(name = "dept_id", referencedColumnName = "dept_id", insertable = false, updatable = false)

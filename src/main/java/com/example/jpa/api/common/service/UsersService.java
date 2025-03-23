@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.example.jpa.api.common.controller.UsersController;
 import com.example.jpa.api.common.dto.UsersResponseDTO;
 import com.example.jpa.api.common.entity.UsersEntity;
 import com.example.jpa.api.common.repository.UsersRepository;
@@ -33,12 +32,14 @@ public class UsersService {
 
         // DB에서 사용자 조회해서 Entity 에 삽입
         // UsersEntity userEntity = usersRepository.findUser(userId);
+        logger.info("[GET] getUser service 1 >>>>>>>>>");
         UsersEntity userEntity = usersRepository.findUser(userId);
         if (userEntity == null) {
             throw new RuntimeException("사용자를 찾을 수 없습니다.");
         }
 
         // Entity -> DTO 변환 과정
+        logger.info("[GET] getUser service 2 >>>>>>>>>");
         UsersResponseDTO userInfo = UsersResponseDTO.toDto(userEntity);
 
         return userInfo;

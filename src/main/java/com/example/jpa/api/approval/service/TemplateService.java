@@ -2,7 +2,11 @@ package com.example.jpa.api.approval.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.jpa.api.approval.dto.TemplateInsertRequestDTO;
@@ -20,6 +24,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TemplateService {
 
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+
     private final UsersService usersService;
 
     private final TemplateRepository templateRepository;
@@ -33,7 +39,8 @@ public class TemplateService {
     @Transactional
     public TemplateResponseDTO getTemplate(Integer temId) {
 
-        TemplateEntity templates = templateRepository.findTemplate(temId); // DB에서 전체 조회
+        // DB에서 전체 조회
+        TemplateEntity templates = templateRepository.findByTemId(temId);
 
         TemplateResponseDTO result = TemplateResponseDTO.toDto(templates);
 
@@ -47,16 +54,19 @@ public class TemplateService {
      * temId, compId, deptId, searchType, searchKeyword, pageSize, pageNum
      */
     @Transactional
-    public List<TemplateResponseDTO> getTemList() {
+    public List<TemplateResponseDTO> getTemList(String keyword) {
 
-        List<TemplateEntity> templates = templateRepository.findAll(); // DB에서 전체 조회
+        Sort sort = Sort.by(Sort.Order.asc("company.compNm"))
+                .and(Sort.by(Sort.Order.asc("department.deptNm")))
+                .and(Sort.by(Sort.Order.asc("temNm")));
 
-        List<TemplateResponseDTO> result = new ArrayList<>();
-        for (TemplateEntity temp : templates) {
-            result.add(TemplateResponseDTO.toDto(temp));
-        }
+        List<TemplateEntity> templates = (keyword == null || keyword.isEmpty())
+                ? templateRepository.findAll(sort)
+                : templateRepository.findByTemNmContaining(keyword, sort);
 
-        return result;
+        return templates.stream()
+                .map(TemplateResponseDTO::toDto)
+                .collect(Collectors.toList());
     }
 
     /*

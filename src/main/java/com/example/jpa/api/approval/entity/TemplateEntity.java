@@ -39,14 +39,14 @@ public class TemplateEntity {
     @Column(name = "comp_id", nullable = false)
     private Integer compId; // 소속 회사
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "comp_id", referencedColumnName = "comp_id", insertable = false, updatable = false)
     private CompanyEntity company;
 
     @Column(name = "dept_id", nullable = false)
     private Integer deptId; // 소속 부서
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "comp_id", referencedColumnName = "comp_id", insertable = false, updatable = false),
             @JoinColumn(name = "dept_id", referencedColumnName = "dept_id", insertable = false, updatable = false)
@@ -68,21 +68,21 @@ public class TemplateEntity {
     @Column(name = "create_id", nullable = false)
     private Integer createId; // 생성자 아이디
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "create_id", referencedColumnName = "user_id", insertable = false, updatable = false)
     private UsersEntity createNm; // 생성자 이름
 
     @Column(name = "create_comp_id", nullable = false)
     private Integer createCompId; // 생성자 소속 회사
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "create_comp_id", referencedColumnName = "comp_id", insertable = false, updatable = false)
     private CompanyEntity createCompany;
 
     @Column(name = "create_dept_id", nullable = false)
     private Integer createDeptId; // 생성자 소속 부서
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "create_comp_id", referencedColumnName = "comp_id", insertable = false, updatable = false),
             @JoinColumn(name = "create_dept_id", referencedColumnName = "dept_id", insertable = false, updatable = false)
@@ -95,21 +95,21 @@ public class TemplateEntity {
     @Column(name = "update_id", nullable = true)
     private Integer updateId; // 수정자 아이디
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "update_id", referencedColumnName = "user_id", insertable = false, updatable = false, nullable = true)
     private UsersEntity updateNm; // 수정자 이름
 
     @Column(name = "update_comp_id", nullable = true)
     private Integer updateCompId; // 수정자 소속 회사
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "update_comp_id", referencedColumnName = "comp_id", insertable = false, updatable = false, nullable = true)
     private CompanyEntity updateCompany; // 수정자 소속 회사 이름
 
     @Column(name = "update_dept_id", nullable = true)
     private Integer updateDeptId; // 수정자 소속 부서
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "update_comp_id", referencedColumnName = "comp_id", insertable = false, updatable = false, nullable = true),
             @JoinColumn(name = "update_dept_id", referencedColumnName = "dept_id", insertable = false, updatable = false, nullable = true)

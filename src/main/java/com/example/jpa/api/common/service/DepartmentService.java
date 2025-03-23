@@ -34,12 +34,15 @@ public class DepartmentService {
     public DepartmentResponseDTO getDepartment(Integer compId, Integer deptId) {
 
         // deptartment 는 복합키로 구성되어있어 복합키 객체 생성
+        logger.info("[GET] getDepartment service 1 >>>>>>>>>");
         DepartmentPkEntity departmentPk = new DepartmentPkEntity(compId, deptId);
         Optional<DepartmentEntity> optionalEntity = departmentRepository.findById(departmentPk);
 
         if (optionalEntity.isPresent()) {
             // Entity -> DTO 변환 과정
+            logger.info("[GET] getDepartment service 2 >>>>>>>>>");
             DepartmentEntity entity = optionalEntity.get();
+            logger.info("[GET] getDepartment service 3 >>>>>>>>>");
             DepartmentResponseDTO result = DepartmentResponseDTO.toDto(entity);
             return result;
         } else {

@@ -32,11 +32,14 @@ public class CompanyService {
     @Transactional
     public CompanyResponseDTO getCompany(Integer compId) {
         // DB에서 사용자 조회해서 Entity 에 삽입
+        logger.info("[GET] getCompany service 1 >>>>>>>>>");
         Optional<CompanyEntity> optionalEntity = companyRepository.findById(compId);
 
         if (optionalEntity.isPresent()) {
             // Entity -> DTO 변환 과정
+            logger.info("[GET] getCompany service 2 >>>>>>>>>");
             CompanyEntity entity = optionalEntity.get();
+            logger.info("[GET] getCompany service 3 >>>>>>>>>");
             CompanyResponseDTO result = CompanyResponseDTO.toDto(entity);
             return result;
         } else {
